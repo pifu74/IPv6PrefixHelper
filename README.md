@@ -105,6 +105,7 @@ All actions happen entirely locally on the system — no cloud calls, no remote 
 
 This project is not intended to be a general-purpose network utility, but a precise tool built for one task:
 “Prefix lost → IPv6 broken → automatically fix the interface.”
+
 ---
 
 ## ✨ Features
