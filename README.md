@@ -6,9 +6,15 @@
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)
 ![Status: Stable](https://img.shields.io/badge/status-stable-success)
 
-Ein leichter, vollständig lokal laufender macOS-Menüleistenhelfer zur automatischen Erkennung und Reparatur eines bekannten IPv6-Problems auf Systemen mit UniFi Cloud Gateway Ultra (oder ähnlichen Routern), bei denen Router Advertisements (RA) sporadisch ausfallen oder Präfixe verloren gehen.
+🇩🇪 Über IPv6PrefixHelper
 
-Der IPv6PrefixHelper überwacht IPv6-Konnektivität über `NWPathMonitor`, analysiert globale IPv6-Adressen, Präfixe, ULA-Adressen und Default-Routen und kann – falls nötig – das Interface „Ethernet“ zuverlässig reparieren.
+IPv6PrefixHelper ist eine kleine, spezialisierte macOS-Menüleisten-App, die ein bekanntes Problem vieler UniFi-/Ubiquiti-Setups umgeht: fehlende oder eingefrorene IPv6 Router Advertisements (RA).
+Wenn macOS dadurch das globale IPv6-Präfix verliert, bleibt zwar eine ULA-Adresse bestehen, aber IPv6-Konnektivität bricht ab — oft ohne sichtbaren Hinweis.
+
+Die App erkennt diesen Zustand automatisch, überwacht sowohl WLAN als auch Ethernet, protokolliert Änderungen des globalen Präfixes und ihrer Default-Route und führt bei Bedarf einen automatischen IPv6-Fix auf dem Ethernet-Interface durch.
+Alle Aktionen werden vollständig lokal ausgeführt, ohne Netzwerkverkehr an Dritte, ohne Cloud-Abhängigkeiten und ohne Hintergrunddienste außerhalb der App.
+
+Ziel des Projekts ist kein generischer Netzwerkmonitor, sondern ein schlankes, robustes Werkzeug für genau dieses Problem: „Prefix verloren → IPv6 nicht funktional → automatisch beheben.“
 
 ---
 
@@ -79,10 +85,16 @@ Das bedeutet u. a.:
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)
 ![Status: Stable](https://img.shields.io/badge/status-stable-success)
 
-A lightweight macOS menu-bar helper that detects and automatically repairs a common IPv6 issue seen on systems using UniFi Cloud Gateway Ultra (and similar routers) where Router Advertisements (RA) sometimes fail or IPv6 prefixes become stale.
+🇬🇧 About IPv6PrefixHelper
 
-The app continuously monitors IPv6 connectivity, analyses global addresses, prefixes, ULA, and default routes, and automatically repairs the “Ethernet” IPv6 configuration when needed.
+IPv6PrefixHelper is a small, purpose-built macOS menu bar application designed to work around a well-known issue in many UniFi/Ubiquiti environments: missing or stale IPv6 Router Advertisements (RA).
+When macOS loses its global IPv6 prefix, a ULA address may remain, but IPv6 connectivity silently breaks — often without any obvious indication.
 
+The app continuously monitors both Wi-Fi and Ethernet, tracks changes in global prefixes and default routes, and performs an automatic IPv6 repair on the Ethernet interface whenever required.
+All actions happen entirely locally on the system — no cloud calls, no remote logging, no external services.
+
+This project is not intended to be a general-purpose network utility, but a precise tool built for one task:
+“Prefix lost → IPv6 broken → automatically fix the interface.”
 ---
 
 ## ✨ Features
