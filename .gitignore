@@ -1,0 +1,27 @@
+# Xcode
+DerivedData/
+xcuserdata/
+*.xcscmblueprint
+
+# Build products
+build/
+Build/
+*.xcarchive
+*.dSYM
+*.ipa
+*.app
+
+# SwiftPM
+.swiftpm/
+.build/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Fastlane / Tools
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots

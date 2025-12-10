@@ -1,0 +1,15 @@
+//
+//  Localizable.strings
+//  IPv6PrefixHelper
+//
+//  Created by Pierre Funke on 09.12.25.
+//
+
+"app.name" = "IPv6 Prefix Helper UCG Ultra";
+"menu.debugLog.title" = "Debug-Log";
+"menu.export" = "Exportieren …";
+"menu.clear" = "Leeren";
+"status.ok" = "Status: Alles in Ordnung – Präfixe stimmen überein.";
+"status.noGlobalIPv6" = "Status: Keine globale IPv6-Adresse konfiguriert.";
+"status.prefixMismatch" = "Status: Warnung – Präfixe von WLAN und Ethernet unterscheiden sich.";
+"status.ipv6Dead" = "Status: Fehler – Präfix vermutlich veraltet, IPv6 nicht erreichbar.";
