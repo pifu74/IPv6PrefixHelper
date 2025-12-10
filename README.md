@@ -1,11 +1,12 @@
 # IPv6PrefixHelper
 
 <p align="center">
-  <img src="assets/icon/icon.png" alt="IPv6 Prefix Helper Icon" width="200">
+  <img src="assets/icon/icon.png" width="200">
 </p>
 
 <p align="center">
-  <em>Automatic IPv6 Prefix Recovery for macOS</em>
+  <strong>Automatic IPv6 Recovery for macOS</strong><br>
+  Detects broken IPv6 prefixes and fixes them instantly.
 </p>
 
 ![Platform macOS](https://img.shields.io/badge/platform-macOS-1f6feb?logo=apple)
