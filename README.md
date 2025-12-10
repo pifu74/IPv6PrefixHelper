@@ -2,7 +2,7 @@
 
 ![Platform macOS](https://img.shields.io/badge/platform-macOS-1f6feb?logo=apple)
 ![Swift](https://img.shields.io/badge/swift-5.9-orange?logo=swift)
-![Xcode](https://img.shields.io/badge/Xcode-15.1-blue?logo=xcode)
+![Xcode](https://img.shields.io/badge/Xcode-16-blue)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)
 ![Status: Stable](https://img.shields.io/badge/status-stable-success)
 
