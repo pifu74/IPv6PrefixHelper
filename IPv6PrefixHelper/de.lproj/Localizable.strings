@@ -5,11 +5,142 @@
 //  Created by Pierre Funke on 09.12.25.
 //
 
-"app.name" = "IPv6 Prefix Helper UCG Ultra";
-"menu.debugLog.title" = "Debug-Log";
-"menu.export" = "Exportieren …";
-"menu.clear" = "Leeren";
-"status.ok" = "Status: Alles in Ordnung – Präfixe stimmen überein.";
-"status.noGlobalIPv6" = "Status: Keine globale IPv6-Adresse konfiguriert.";
-"status.prefixMismatch" = "Status: Warnung – Präfixe von WLAN und Ethernet unterscheiden sich.";
-"status.ipv6Dead" = "Status: Fehler – Präfix vermutlich veraltet, IPv6 nicht erreichbar.";
+"status.initial" = "Status: Es wurde noch keine Prüfung durchgeführt.";
+"status.ulaOnly" = "Status: Nur ULA‑Adressen vorhanden – vermutlich verlorenes Präfix, IPv6‑Internet nicht erreichbar.";
+"status.noGlobalIPv6" = "Status: Es ist keine globale IPv6‑Adresse konfiguriert.";
+"status.noDefaultRoute" = "Status: Fehler – IPv6‑Standardroute fehlt (vermutete RA‑Stille).";
+"status.prefixMismatch" = "Status: Warnung – Die IPv6‑Präfixe von WLAN und Ethernet stimmen nicht überein.";
+"status.ipv6Dead" = "Status: Fehler – Präfix vermutlich veraltet, IPv6‑Verbindung nicht erreichbar.";
+"status.ok" = "Status: Verbindung in Ordnung – Die IPv6‑Präfixe stimmen überein.";
+
+"WLAN (en1): %@" = "WLAN (en1): %@";
+"WLAN (en1): – keine globale IPv6-Adresse –" = "WLAN (en1): – keine globale IPv6-Adresse –";
+"IPv4: %@" = "IPv4: %@";
+"IPv4: –" = "IPv4: –";
+
+"Ethernet (en0): %@" = "Ethernet (en0): %@";
+"Ethernet (en0): – keine globale IPv6-Adresse –" = "Ethernet (en0): – keine globale IPv6-Adresse –";
+
+"Letzte Prüfung: %@" = "Letzte Prüfung: %@";
+"Letzte Prüfung: noch keine" = "Letzte Prüfung: noch keine";
+"Letzter Fix: %@" = "Letzter Fix: %@";
+"Letzter Fix: noch keiner" = "Letzter Fix: noch keiner";
+
+"Status prüfen" = "Status prüfen";
+"Einstellungen …" = "Einstellungen …";
+"Log anzeigen …" = "Log anzeigen …";
+"Über „IPv6 Prefix Fixer“…" = "Über „IPv6 Prefix Fixer“…";
+"App beenden" = "App beenden";
+
+"IPv6PrefixHelper Log" = "IPv6PrefixHelper Log";
+
+"Allgemein" = "Allgemein";
+"Periodische Auto-Prüfung alle 5 Minuten aktivieren" = "Periodische Auto-Prüfung alle 5 Minuten aktivieren";
+"Automatisch IPv6 bei Fehler reparieren" = "Automatisch IPv6 bei Fehler reparieren";
+"Darstellung" = "Darstellung";
+"App im Dock anzeigen" = "App im Dock anzeigen";
+"Anzeigemodus" = "Anzeigemodus";
+"System" = "System";
+"Hell" = "Hell";
+"Dunkel" = "Dunkel";
+"Debug" = "Debug";
+"Debug-Logging (Konsole)" = "Debug-Logging (Konsole)";
+
+"Debug-Log" = "Debug-Log";
+"Exportieren …" = "Exportieren …";
+"Leeren" = "Leeren";
+"Log exportieren" = "Log exportieren";
+"IPv6PrefixHelper-Log.txt" = "IPv6PrefixHelper-Log.txt";
+
+"log.nwPathMonitor.change" = "Netzwerkstatus geändert: %@";
+"log.nwPathMonitor.skip" = "Netzwerkstatus geändert: automatische Prüfung übersprungen (Status ≠ satisfied).";
+
+"log.prefix.firstObserved" = "Erstes erkanntes IPv6‑Präfix: %@";
+"log.prefix.changed" = "IPv6‑Präfix geändert: %@ → %@";
+"log.prefix.lost" = "Globales IPv6‑Präfix verloren – keine globale Adresse mehr vorhanden.";
+
+"log.route.current" = "Aktuelle IPv6‑Standardroute: Gateway=%@, Schnittstelle=%@";
+
+"log.autofix.start" = "Automatische Reparatur ausgeführt.";
+"log.autofix.routerKnown" = "Automatische Reparatur: gespeicherten IPv6‑Router für „Ethernet“ verwendet.";
+"log.autofix.noPrefix" = "Automatische Reparatur: kein WLAN‑Präfix oder bekannter Router – IPv6 für „Ethernet“ auf automatisch gesetzt.";
+"log.autofix.noRouter" = "Automatische Reparatur: kein bekannter IPv6‑Router – IPv6 für „Ethernet“ auf automatisch gesetzt.";
+
+"log.autofix.setManual" = "„Ethernet“ wurde auf manuellen IPv6‑Modus gesetzt (Adresse %@/64, Router %@).";
+"log.autofix.setAutomatic" = "„Ethernet“ wurde auf automatischen IPv6‑Modus gesetzt.";
+
+"log.health.timeout" = "Health‑Check (Timeout): ping6 dns.google → %@";
+"log.health.httpError" = "Health‑Check (HTTP‑Fehler): ping6 dns.google → %@";
+
+"log.check.start" = "Statusprüfung gestartet (autoFix=%@)";
+
+"log.ipv6.testTarget" = "Prüfe IPv6‑Ziel %@ (%@) …";
+"log.ipv6.testResult" = "Ergebnis für %@: %@";
+"log.ipv6.testTimeout" = "IPv6‑Test %@: Fehler – Timeout nach %d Sekunden";
+"log.ipv6.allGood" = "Alle IPv6‑Ziele erfolgreich erreichbar.";
+
+"log.init.firstCheck" = "Initialisierung abgeschlossen – erste automatische Prüfung startet in %0.0f Sekunden (Auto-Fix aktiviert).";
+"log.netstatus.ok" = "Netzwerkstatus: Verbindung in Ordnung.";
+"log.netstatus.changed" = "Netzwerkstatus geändert: %@";
+"log.checkStatus.start" = "Statusprüfung gestartet (Auto‑Fix: %@).";
+"log.found.ipv6" = "Gefundene globale IPv6‑Adressen – WLAN: %@, Ethernet: %@.";
+"log.found.ula" = "Gefundene ULA‑Adressen – WLAN: %@, Ethernet: %@.";
+"log.found.ipv4" = "Gefundene IPv4‑Adressen – WLAN: %@, Ethernet: %@.";
+"log.prefixes" = "Ermittelte IPv6‑Präfixe – WLAN: %@, Ethernet: %@.";
+"log.ipv6test.start" = "Prüfe IPv6‑Ziel %@ (%@)…";
+"log.ipv6test.result" = "Ergebnis für %@: %@";
+"log.ipv6test.allOk" = "Alle konfigurierten IPv6‑Ziele sind erfolgreich erreichbar.";
+"log.ipv6.connectivity" = "IPv6‑Konnektivität: %@.";
+"log.defaultRoute.current" = "Aktuelle IPv6‑Standardroute – Gateway: %@, Schnittstelle: %@.";
+// Zusätzliche Netzstatus-Varianten
+"log.netstatus.nok" = "Netzwerkstatus: Keine Verbindung.";
+"log.netstatus.requiresConnection" = "Netzwerkstatus: Verbindung wird benötigt.";
+"log.netstatus.unknown" = "Netzwerkstatus: Unbekannter Status (%@).";
+"log.netstatus.noAutoCheck" = "Netzwerkstatus geändert: automatische Prüfung übersprungen (Status ≠ satisfied).";
+
+// Auto-Fix / Fehlerfälle
+"log.autoFix.ulaOnly" = "Nur ULA-Adressen gefunden – vermute verlorenes Präfix, Auto-Fix wird ausgeführt.";
+"log.error.noDefaultRoute.autofix" = "FEHLER: IPv6-Standardroute fehlt – vermute RA-Stille, Auto-Fix wird ausgeführt.";
+"log.error.noDefaultRoute.noAutofix" = "FEHLER: IPv6-Standardroute fehlt – vermute RA-Stille, Auto-Fix ist deaktiviert.";
+"log.autoFix.prefixMismatch" = "Präfix-Mismatch erkannt – Auto-Fix für „Ethernet“ wird ausgeführt.";
+"log.autoFix.ipv6Dead" = "IPv6 trotz gleicher Präfixe nicht erreichbar – Auto-Fix für „Ethernet“ wird ausgeführt.";
+
+"log.autoFix.usedKnownRouter" = "Auto-Fix: gespeicherten IPv6-Router für „Ethernet“ verwendet.";
+"log.autoFix.manualAddress" = "Manuelle IPv6-Adresse %@/64, Router %@.";
+"log.autoFix.modeManual" = "IPv6 für „Ethernet“ auf MANUELL gesetzt (%@/64, Router %@).";
+"log.autoFix.noPrefixFallbackAuto" = "Auto-Fix: kein WLAN-Präfix und kein bekannter Router – IPv6 für „Ethernet“ wieder auf automatisch gesetzt.";
+"log.autoFix.noKnownRouterFallbackAuto" = "Auto-Fix: kein bekannter IPv6-Router – IPv6 für „Ethernet“ wieder auf automatisch gesetzt (ohne Router-Heuristik).";
+
+// IPv6-Tests / Health-Checks
+"log.ipv6test.invalidUrl" = "IPv6-Test %@: FEHLER – ungültige URL (%@).";
+"log.ipv6test.timeout" = "IPv6-Test %@: FEHLER – Timeout nach %0.0f Sekunden.";
+"log.ipv6test.httpFailed" = "IPv6-Test %@: FEHLER – HTTP-Prüfung nicht erfolgreich.";
+
+"log.healthCheck.timeout.start" = "Health-Check (Timeout): ping6 dns.google …";
+"log.healthCheck.timeout.result" = "Health-Check (Timeout): ping6 dns.google → %@";
+"log.healthCheck.httpError.start" = "Health-Check (HTTP-Fehler): ping6 dns.google …";
+"log.healthCheck.httpError.result" = "Health-Check (HTTP-Fehler): ping6 dns.google → %@";
+
+// Shell- / Ping-Fehler
+"log.shell.launchError" = "Fehler beim Starten von %@: %@";
+"log.ping.launchError" = "Fehler beim Starten von /sbin/ping6: %@";
+
+// Umschalten des IPv6-Modus
+"log.toggleIPv6.reset" = "IPv6-Modus für Dienst „%@“ wird zurückgesetzt: AUS → AUTOMATISCH.";
+"log.toggleIPv6.nowAutomatic" = "IPv6-Modus für Dienst „%@“ steht nun auf AUTOMATISCH (networksetup).";
+"log.netstatus.skipDuringAutoFix" = "Netzwerkstatus während Auto-Fix geändert – automatische Prüfung wird übersprungen.";
+
+"log.autoFix.skipped.ulaOnlyRecently" = "Auto-Fix übersprungen (nur ULA-Adressen) – vor kurzem bereits ausgeführt.";
+"log.autoFix.skipped.noDefaultRouteRecently" = "Auto-Fix übersprungen (keine IPv6-Standardroute) – vor kurzem bereits ausgeführt.";
+"log.autoFix.skipped.ipv6DeadRecently" = "Auto-Fix übersprungen (IPv6 weiterhin nicht erreichbar) – vor kurzem bereits ausgeführt.";
+
+"log.autoFix.resetEthernetAutomatic" = "Auto-Fix: IPv6 auf „Ethernet“ neu ausgehandelt (AUS → AUTOMATISCH).";
+
+"log.autoFix.afterResetSummary" = "Auto-Fix nach Reset – Ethernet IPv6 = %@, Standardroute = %@ auf %@.";
+
+"log.autoFix.noValidComboStayAutomatic" = "Auto-Fix: keine gültige Kombination aus IPv6-Adresse und Standardroute gefunden – IPv6 bleibt im Automatik-Modus.";
+
+"log.autoFix.setManualFromAuto" = "Auto-Fix: IPv6 für „Ethernet“ manuell gesetzt mit Adresse %@/%@, Router %@.";
+
+"status.autoFix.renewedAutomatic" = "Status: IPv6-Konfiguration wurde im Automatik-Modus erneuert, Status wird erneut geprüft …";
+"status.autoFix.manualFromAuto" = "Status: IPv6 wurde für „Ethernet“ manuell gesetzt (basierend auf der vorherigen Auto-Konfiguration), Status wird erneut geprüft …";
