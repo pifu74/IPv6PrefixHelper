@@ -1,10 +1,19 @@
 # IPv6PrefixHelper
 
+<p align="center">
+  <img src="assets/icon/icon.png" alt="IPv6 Prefix Helper Icon" width="200">
+</p>
+
+<p align="center">
+  <em>Automatic IPv6 Prefix Recovery for macOS</em>
+</p>
+
 ![Platform macOS](https://img.shields.io/badge/platform-macOS-1f6feb?logo=apple)
 ![Swift](https://img.shields.io/badge/swift-5.9-orange?logo=swift)
 ![Xcode](https://img.shields.io/badge/Xcode-16-blue)
 ![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)
 ![Status: Stable](https://img.shields.io/badge/status-stable-success)
+
 
 🇩🇪 Über IPv6PrefixHelper
 
