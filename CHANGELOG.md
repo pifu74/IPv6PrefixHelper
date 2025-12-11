@@ -1,8 +1,11 @@
 # Changelog
 
 ## [1.0.1] – 2025-12-11
-- Fixed menu bar status not returning to OK after successful auto-fix.
-- Added internal safeguards against repeated auto-fix loops.
+### Fixed
+- Stabilized auto-fix status handling after sleep
+- Improved IPv6 connectivity checks & logging
 
 ## [1.0.0] – 2025-12-10
-- Initial public release.
+### Added
+- Initial public release
+- Automatic detection and repair of lost IPv6 prefixes on UCG Ultra
