@@ -144,3 +144,26 @@
 
 "status.autoFix.renewedAutomatic" = "Status: IPv6-Konfiguration wurde im Automatik-Modus erneuert, Status wird erneut geprüft …";
 "status.autoFix.manualFromAuto" = "Status: IPv6 wurde für „Ethernet“ manuell gesetzt (basierend auf der vorherigen Auto-Konfiguration), Status wird erneut geprüft …";
+
+"log.updateCheck.start" = "Manuelle Update-Prüfung gestartet (aktuelle Version: %@).";
+"log.updateCheck.noTag" = "GitHub-Antwort enthielt keine verwertbare Versionsinformation (tag_name fehlt).";
+"log.updateCheck.invalidUrl" = "Update-Prüfung fehlgeschlagen: Ungültige GitHub-URL.";
+"log.updateCheck.invalidResponse" = "Update-Prüfung fehlgeschlagen: Antwortdaten von GitHub waren ungültig oder unvollständig.";
+"log.updateCheck.noUpdate" = "Update-Prüfung: Es ist keine neuere Version verfügbar.";
+"log.updateCheck.latestVersion" = "Neueste verfügbare GitHub-Version: %@.";
+"updateCheck.alert.ok" = "OK";
+
+"updateCheck.alert.title.error" = "Update-Überprüfung fehlgeschlagen";
+"updateCheck.alert.title.upToDate" = "App ist aktuell";
+"updateCheck.alert.title.updateAvailable" = "Neues Update verfügbar";
+"updateCheck.alert.title.localNewer" = "Lokale Version ist neuer";
+
+"updateCheck.alert.message.error" = "Die Update-Prüfung ist mit einem Fehler fehlgeschlagen: %@";
+"updateCheck.alert.message.invalidResponse" = "Die Antwort von GitHub war unerwartet oder unvollständig.\n\nBitte versuche es später erneut oder prüfe die Releases manuell auf GitHub;";
+"updateCheck.alert.message.noTag" = "Die GitHub-Antwort enthielt keine verwertbare Versionsinformation.\n\nBitte prüfe die Releases manuell auf GitHub;";
+
+"updateCheck.alert.message.upToDate" = "IPv6PrefixHelper ist auf dem neuesten Stand (Version %@).";
+
+"updateCheck.alert.message.updateAvailable" = "Es ist eine neue Version verfügbar.\n\nAktuell installiert: %@\nVerfügbar: %@\n\nDie Release-Seite wurde im Browser geöffnet.";
+
+"updateCheck.alert.message.localNewer" = "Die lokal laufende Version (%@) ist neuer als die aktuell veröffentlichte GitHub-Version (%@). Eventuell handelt es sich um einen Entwicklungsbuild.";

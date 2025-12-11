@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import Network
+import AppKit
 
 /// Art des Status – beeinflusst Icon und Farben.
 enum IPv6StatusKind {
@@ -192,6 +193,149 @@ final class IPv6PrefixViewModel: ObservableObject {
         UserDefaults.standard.set(now, forKey: Self.lastCheckDefaultsKey)
 
         checkStatus(autoFix: true)
+    }
+
+
+    // MARK: - Update-Check (GitHub)
+
+    /// Führt eine manuelle Update-Prüfung gegen das GitHub-Release-API durch.
+    /// Ergebnis wird ausschließlich im Log festgehalten; bei neuer Version wird
+    /// die Release-Seite im Standardbrowser geöffnet.
+    func checkForUpdates() {
+        let currentVersion = (Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String) ?? "0"
+        log(String(format: NSLocalizedString("log.updateCheck.start",
+                                             comment: "Manual update check started for current version"),
+                   currentVersion))
+
+        guard let url = URL(string: "https://api.github.com/repos/pifu74/IPv6PrefixHelper/releases/latest") else {
+            log(NSLocalizedString("log.updateCheck.invalidUrl",
+                                  comment: "Update check failed: invalid GitHub URL"))
+            return
+        }
+
+        let request = URLRequest(url: url,
+                                 cachePolicy: .reloadIgnoringLocalCacheData,
+                                 timeoutInterval: 10)
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            func showUpdateAlert(titleKey: String, messageKey: String, _ args: CVarArg...) {
+                let title = NSLocalizedString(titleKey,
+                                              comment: "Title for update check alert")
+                let format = NSLocalizedString(messageKey,
+                                               comment: "Message for update check alert")
+                let message = String(format: format, arguments: args)
+                let okTitle = NSLocalizedString("updateCheck.alert.ok",
+                                                comment: "OK button title for update check alerts")
+
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.messageText = title
+                    alert.informativeText = message
+                    alert.alertStyle = .informational
+                    alert.addButton(withTitle: okTitle)
+                    alert.runModal()
+                }
+            }
+            if let error = error {
+                self.log(String(format: NSLocalizedString("log.updateCheck.error",
+                                                          comment: "Update check failed with error"),
+                                error.localizedDescription))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.error",
+                                messageKey: "updateCheck.alert.message.error",
+                                error.localizedDescription)
+                return
+            }
+
+            guard
+                let data = data,
+                let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+            else {
+                self.log(NSLocalizedString("log.updateCheck.invalidResponse",
+                                           comment: "Update check failed: invalid response data"))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.error",
+                                messageKey: "updateCheck.alert.message.invalidResponse")
+                return
+            }
+
+            let tag = (json["tag_name"] as? String) ?? ""
+            let htmlUrlString = (json["html_url"] as? String) ?? ""
+
+            guard !tag.isEmpty else {
+                self.log(NSLocalizedString("log.updateCheck.noTag",
+                                           comment: "Update check failed: tag_name missing in GitHub response"))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.error",
+                                messageKey: "updateCheck.alert.message.noTag")
+                return
+            }
+
+            // Führendes "v" im Tag entfernen (z. B. "v1.0.2" → "1.0.2")
+            let latestVersion = tag.hasPrefix("v") ? String(tag.dropFirst()) : tag
+
+            self.log(String(format: NSLocalizedString("log.updateCheck.latestVersion",
+                                                      comment: "Latest GitHub version string"),
+                            latestVersion))
+
+            // Wenn Versionen exakt übereinstimmen → alles aktuell
+            if latestVersion == currentVersion {
+                self.log(String(format: NSLocalizedString("log.updateCheck.noUpdate",
+                                                          comment: "Update check: app is up to date"),
+                                currentVersion))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.upToDate",
+                                messageKey: "updateCheck.alert.message.upToDate",
+                                currentVersion)
+                return
+            }
+
+            // Semantischen Versionsvergleich nutzen, um "neuer" zu erkennen
+            if self.isVersion(latestVersion, newerThan: currentVersion) {
+                self.log(String(format: NSLocalizedString("log.updateCheck.updateAvailable",
+                                                          comment: "Update available: current vs latest"),
+                                currentVersion,
+                                latestVersion))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.updateAvailable",
+                                messageKey: "updateCheck.alert.message.updateAvailable",
+                                currentVersion,
+                                latestVersion)
+                if let htmlUrl = URL(string: htmlUrlString) {
+                    self.log(NSLocalizedString("log.updateCheck.openReleases",
+                                               comment: "Opening GitHub releases page in browser"))
+                    DispatchQueue.main.async {
+                        NSWorkspace.shared.open(htmlUrl)
+                    }
+                }
+            } else {
+                // Lokale Version ist neuer (z. B. Dev-Build)
+                self.log(String(format: NSLocalizedString("log.updateCheck.localNewer",
+                                                          comment: "Local version is newer than GitHub latest"),
+                                currentVersion,
+                                latestVersion))
+                showUpdateAlert(titleKey: "updateCheck.alert.title.localNewer",
+                                messageKey: "updateCheck.alert.message.localNewer",
+                                currentVersion,
+                                latestVersion)
+            }
+        }
+
+        task.resume()
+    }
+
+    /// Vergleicht zwei Versionsstrings im Format "X.Y.Z" und ermittelt,
+    /// ob `v1` neuer ist als `v2`.
+    private func isVersion(_ v1: String, newerThan v2: String) -> Bool {
+        let a = v1.split(separator: ".").map { Int($0) ?? 0 }
+        let b = v2.split(separator: ".").map { Int($0) ?? 0 }
+        let count = max(a.count, b.count)
+
+        for i in 0..<count {
+            let x = i < a.count ? a[i] : 0
+            let y = i < b.count ? b[i] : 0
+
+            if x > y { return true }
+            if x < y { return false }
+        }
+
+        // Gleich oder nicht eindeutig neuer
+        return false
     }
 
     // MARK: - Hauptlogik

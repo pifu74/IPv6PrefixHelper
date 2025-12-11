@@ -137,6 +137,10 @@ struct IPv6PrefixHelperApp: App {
                 Button(NSLocalizedString("Log anzeigen …", comment: "Log-Fenster öffnen")) {
                     openLogWindow()
                 }
+            
+                Button(NSLocalizedString("Nach Updates suchen …", comment: "Manuelle Update-Prüfung")) {
+                    viewModel.checkForUpdates()
+                }
 
                 Button(NSLocalizedString("Über „IPv6 Prefix Fixer“…", comment: "Über-Dialog öffnen")) {
                     NSApp.orderFrontStandardAboutPanel(nil)

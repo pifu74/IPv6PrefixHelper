@@ -152,3 +152,31 @@
 
 "status.autoFix.renewedAutomatic" = "Status: IPv6 configuration renewed in automatic mode, checking again …";
 "status.autoFix.manualFromAuto" = "Status: IPv6 was set to manual on “Ethernet” based on the previous automatic configuration, checking again …";
+
+// Update check – log messages
+"log.updateCheck.start" = "Update check started (current version %@).";
+"log.updateCheck.noTag" = "Update check: GitHub response did not contain a usable tag_name.";
+"log.updateCheck.invalidUrl" = "Update check: ERROR – invalid GitHub URL (%@).";
+"log.updateCheck.invalidResponse" = "Update check: ERROR – invalid or incomplete GitHub response.";
+"log.updateCheck.noUpdate" = "Update check: no newer version available.";
+"log.updateCheck.latestVersion" = "Latest available GitHub version: %@.";
+
+/* Update notification */
+"update.available.title" = "Update available";
+"update.available.message" = "A newer version (%@) of IPv6 Prefix Fixer is available.\n\nCurrent version: %@\nLatest version: %@";
+"update.button.download" = "Open download page";
+"update.button.releaseNotes" = "Show release notes";
+"update.button.dismiss" = "Dismiss";
+
+// Update check – error alerts
+"updateCheck.alert.title.error" = "Update check failed";
+"updateCheck.alert.message.invalidResponse" = "The GitHub response for the latest version was unexpected or incomplete.\n\nPlease try again later or check the releases manually on GitHub.";
+"updateCheck.alert.message.noTag" = "The GitHub response for the latest version did not contain usable version information.\n\nPlease check the releases manually on GitHub.";
+"updateCheck.alert.ok" = "OK";
+
+"alert.ok" = "OK";
+"alert.update.title" = "Update available";
+"alert.update.message" = "A newer version (%@) of IPv6 Prefix Fixer is available.\n\nCurrent version: %@\nLatest version: %@";
+"alert.update.releaseNotes" = "Show release notes";
+"alert.update.download" = "Open download page";
+"alert.update.dismiss" = "Dismiss";
