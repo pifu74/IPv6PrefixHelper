@@ -75,6 +75,10 @@ final class IPv6PrefixViewModel: ObservableObject {
     private var lastAutoFixDate: Date?
     private let autoFixCooldownSeconds: TimeInterval = 60
 
+    // Generation-Counter, um veraltete Status-Updates nach parallelen Prüfungen zu ignorieren
+    private var statusCheckGeneration: Int = 0
+    private let statusGenerationQueue = DispatchQueue(label: "IPv6PrefixHelper.StatusGeneration")
+
     // Gemerkte letzte funktionierende IPv6-Default-Route
     private var lastKnownIPv6Router: String?
     private var lastKnownIPv6Interface: String?
@@ -193,6 +197,12 @@ final class IPv6PrefixViewModel: ObservableObject {
     // MARK: - Hauptlogik
 
     func checkStatus(autoFix: Bool) {
+        // Jede Prüfung erhält eine eigene Generation-ID, damit bei parallelen Checks
+        // nur das Ergebnis der zuletzt gestarteten Prüfung den UI-Status überschreibt.
+        let generation: Int = statusGenerationQueue.sync {
+            self.statusCheckGeneration &+= 1
+            return self.statusCheckGeneration
+        }
         log(String(format: NSLocalizedString("log.checkStatus.start", comment: "Start status check"), autoFix ? "true" : "false"))
 
         DispatchQueue.global(qos: .background).async {
@@ -231,6 +241,10 @@ final class IPv6PrefixViewModel: ObservableObject {
             }
 
             DispatchQueue.main.async {
+                // Wenn inzwischen eine neuere Prüfung gestartet wurde, dieses Ergebnis ignorieren.
+                guard generation == self.statusCheckGeneration else {
+                    return
+                }
                 // Auto-Fix-Cooldown berechnen, um Endlosschleifen zu vermeiden
                 let nowForAutofix = Date()
                 let canRunAutoFixAgain: Bool
@@ -326,20 +340,32 @@ final class IPv6PrefixViewModel: ObservableObject {
                     return
                 }
 
+                // Prüfen, ob Ethernet die primäre, funktionierende IPv6-Verbindung ist.
+                // Wenn das der Fall ist, kann ein Präfix-Mismatch zum WLAN ignoriert werden.
+                let ethernetIsPrimary =
+                    (ethPrefix != nil) &&
+                    hasIPv6Connectivity &&
+                    (defaultRoute?.iface == "en0")
+
                 // Fall 1: Präfix-Mismatch zwischen WLAN und Ethernet
                 if let wp = wlanPrefix, let ep = ethPrefix, wp != ep {
-                    self.statusKind = .warning
-                    self.statusText = NSLocalizedString("status.prefixMismatch", comment: "Status: Präfixe von WLAN und Ethernet unterscheiden sich")
-                    if autoFix && self.autoFixEnabled {
-                        if canRunAutoFixAgain {
-                            self.lastAutoFixDate = nowForAutofix
-                            self.log(NSLocalizedString("log.autoFix.prefixMismatch", comment: "Prefix mismatch – run auto-fix"))
-                            self.repairIPv6Interfaces()
-                        } else {
-                            self.log("Auto-Fix wird übersprungen (Präfix-Mismatch) – vor kurzem bereits ausgeführt.")
+                    if ethernetIsPrimary {
+                        // Ethernet ist primär und IPv6 funktioniert – WLAN-Präfix wird ignoriert.
+                        // Kein Statuswechsel, kein Auto-Fix; es geht direkt mit den weiteren Checks weiter.
+                    } else {
+                        self.statusKind = .warning
+                        self.statusText = NSLocalizedString("status.prefixMismatch", comment: "Status: Präfixe von WLAN und Ethernet unterscheiden sich")
+                        if autoFix && self.autoFixEnabled {
+                            if canRunAutoFixAgain {
+                                self.lastAutoFixDate = nowForAutofix
+                                self.log(NSLocalizedString("log.autoFix.prefixMismatch", comment: "Prefix mismatch – run auto-fix"))
+                                self.repairIPv6Interfaces()
+                            } else {
+                                self.log("Auto-Fix wird übersprungen (Präfix-Mismatch) – vor kurzem bereits ausgeführt.")
+                            }
                         }
+                        return
                     }
-                    return
                 }
 
                 // Fall 2: Präfixe gleich, aber IPv6 tot
