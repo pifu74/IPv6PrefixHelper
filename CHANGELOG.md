@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] – 2025-12-11
+### Added
+- Update-Check integrated, manual execution only (checks GitHub release page)
+  
 ## [1.0.1] – 2025-12-11
 ### Fixed
 - Stabilized auto-fix status handling after sleep
